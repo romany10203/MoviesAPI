@@ -1,0 +1,33 @@
+<div class="container clearfix my-5">
+    <div class="row border">
+        <div class="col-md-6">
+            <div class="">
+                <img class="py-2 img-fluid" [src]="'https://image.tmdb.org/t/p/w500' + tvShow.poster_path">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="py-5">
+                <p class="h5">TV name <span style="border-right:1px solid #CCC ;" class=""></span>&nbsp;{{tvShow.name}}</p>
+                <p class="h5 my-2">Language : {{tvShow.spoken_languages[0].english_name}}</p>
+                <p class="h5 my-2">Country : {{tvShow.production_countries[0].name}}</p>
+                <span class="h5">Genres : </span>
+                <div class="border">
+                    <p class="h5 px-4" *ngFor="let g of tvShow.genres, let i = index">{{i+1}}- {{g.name}}</p>
+                </div>
+                <div class="h5 my-3">
+                    <span>Overview :</span>
+                    <p class="border p-1">{{tvShow.overview}}</p>
+                </div>
+                <div class="h5">
+                    <p>#Seasons : {{tvShow.number_of_seasons}} </p>
+                    <p>#Episodes : {{tvShow.number_of_episodes}} </p>
+                </div>
+                <p class="h5">
+                    Rating : {{tvShow.vote_average}} of 10 
+                    &nbsp;&nbsp;<span style="border-right:1px solid #CCC ;" class=""></span>&nbsp;&nbsp;
+                    {{tvShow.vote_count}} vote
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

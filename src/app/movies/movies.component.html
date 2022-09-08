@@ -1,0 +1,50 @@
+<div class="container my-5">
+  <input
+    type="text"
+    placeholder="What can I help you with today?"
+    [(ngModel)]="searchvalue"
+  />
+  <!-- <a href="#"><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></a> -->
+  <div class=" my-5 h5">
+    <label class="my-1">Language: </label>
+    <select (change)="changeLang($event)" class="form-select">
+      <option *ngFor="let l of langs" [selected]="l.iso_639_1==currentLang" [value]="l.iso_639_1" >{{l.english_name}}</option>
+    </select>
+  </div>
+  <div class="row">
+    <div
+      class="col-md-3"
+      *ngFor="let movie of filterdMovie"
+    >
+    <div class="border my-2 p-2">
+
+      <a [routerLink]="['/movies', movie.id]">
+        <img
+          class="card-img-top"
+          [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+          alt="Card image cap"
+      /></a>
+      <div class="card-body">
+        <h5 class="card-title">{{ movie.title | uppercase }}</h5>
+        <p>Release Date: {{ movie.release_date | date }}</p>
+        <p>Ticket Price: {{ movie.popularity | currency }}</p>
+        <p class="card-text" *ngIf="movie.isvisable">
+          {{ movie.overview }}
+        </p>
+        <br />
+        <button class="btn btn-primary" (click)="movie.isvisable = !movie.isvisable">
+          {{ movie.isvisable ? "Hide" : "Show" }} Details
+        </button>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <mat-paginator
+    [length]="35021"
+    [pageSize]="20"
+    aria-label="Select page"
+    (page)="changePage($event)"
+  >
+  </mat-paginator>
+</div>

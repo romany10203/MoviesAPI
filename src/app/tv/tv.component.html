@@ -1,0 +1,34 @@
+<div class="container my-5">
+    <div class=" my-5 h5">
+      <label class="my-1">Language: </label>
+      <select (change)="changeLang($event)" class="form-select">
+        <option *ngFor="let l of langs" [selected]="l.iso_639_1==currentLang" [value]="l.iso_639_1" >{{l.english_name}}</option>
+      </select>
+    </div>
+    <div class="row">
+        <div class="col-lg-3" *ngFor="let movie of tvshows">
+          <div class="border my-2 p-2">
+            <a [routerLink]="['/tvs',movie.id]">
+              <img class="card-img-top" [src]='"https://image.tmdb.org/t/p/w500"+movie.poster_path' alt="Card image cap" />
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">{{ movie.title | uppercase}}</h5>
+              <p>Release Date: {{movie.release_date | date}}</p>
+              <p>Ticket Price: {{movie.popularity | currency}}</p>
+              <p class="card-text" *ngIf="movie.isvisable">
+                {{ movie.overview }}
+              </p>
+              <!-- <app-star [rating]="movie.vote_average" (tellParent)="recivedChildData($event)"></app-star> -->
+              <button class="btn btn-primary" (click)="movie.isvisable = !movie.isvisable">{{movie.isvisable? 'Hide':'Show'}} Details</button>
+            </div>
+          </div>
+        </div>
+      </div>
+        <mat-paginator
+        [length]="6811"
+        [pageSize]="20"
+        aria-label="Select page"
+        (page)="changePage($event)"
+        >
+      </mat-paginator>
+</div>
